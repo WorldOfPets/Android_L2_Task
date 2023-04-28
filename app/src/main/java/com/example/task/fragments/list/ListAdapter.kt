@@ -1,14 +1,20 @@
 package com.example.task.fragments.list
 
 import android.annotation.SuppressLint
+import android.os.Bundle
+import android.text.Layout.Directions
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.ListFragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.R
-import com.example.task.data.User
+import com.example.task.model.User
 import com.example.task.databinding.CustomRowBinding
+import com.example.task.databinding.FragmentUpdateBinding
+import com.example.task.fragments.update.updateFragment
 
 class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
@@ -19,11 +25,20 @@ class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         private var firstName:TextView = itemView.firstNameTxt
         private var lastName:TextView = itemView.lastNameTxt
         private var age:TextView = itemView.ageTxt
+        private var rowLayout:ConstraintLayout = itemView.rowLayout
+        fun ItemAdapter(onClickListener:(User)->Unit) {}
+        @SuppressLint("ResourceType")
         fun bind(user: User){
             id.text = user.id.toString()
             firstName.text = user.firstName
             lastName.text = user.lastName
             age.text = user.age.toString()
+            rowLayout.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putParcelable("user", user)
+                itemView.findNavController().navigate(R.id.action_listFragment_to_updateFragment, bundle)
+
+            }
         }
     }
 
@@ -39,7 +54,9 @@ class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = userList[position]
         holder.bind(currentItem)
+
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(users: List<User>){

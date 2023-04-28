@@ -1,9 +1,12 @@
-package com.example.task.data
+package com.example.task.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.task.data.UserDatabase
+import com.example.task.model.User
+import com.example.task.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -20,6 +23,11 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun addUser(user: User){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addUser(user)
+        }
+    }
+    fun updateUser(user: User){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateUser(user)
         }
     }
 }

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task.R
-import com.example.task.data.UserViewModel
+import com.example.task.viewmodel.UserViewModel
 import com.example.task.databinding.FragmentListBinding
 
 
@@ -31,10 +31,10 @@ class listFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        userViewModel.readAllData.observe(viewLifecycleOwner) {
             adapter.setData(it)
-        })
+        }
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }

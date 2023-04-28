@@ -11,10 +11,9 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.task.R
-import com.example.task.data.User
-import com.example.task.data.UserViewModel
+import com.example.task.model.User
+import com.example.task.viewmodel.UserViewModel
 import com.example.task.databinding.FragmentAddBinding
-import com.example.task.databinding.FragmentListBinding
 
 
 class addFragment : Fragment() {
