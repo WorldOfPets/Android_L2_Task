@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.MenuHost
 import androidx.fragment.app.ListFragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,7 @@ class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         fun bind(user: User){
             id.text = user.id.toString()
             firstName.text = user.firstName
-            lastName.text = user.lastName
+            lastName.text = user.role.toString()
             age.text = user.age.toString()
             rowLayout.setOnClickListener {
                 val bundle = Bundle()

@@ -14,6 +14,7 @@ import com.example.task.R
 import com.example.task.model.User
 import com.example.task.viewmodel.UserViewModel
 import com.example.task.databinding.FragmentAddBinding
+import com.example.task.model.Role
 
 
 class addFragment : Fragment() {
@@ -43,12 +44,14 @@ class addFragment : Fragment() {
         val age = binding.ageEditText.text
 
         if(inputCheck(firstName, lastName, age)){
-            val user = User(0, firstName, lastName, Integer.parseInt(age.toString()))
-
-            userViewModel.addUser(user)
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
-            //navigate back
-            findNavController().navigate(R.id.action_addFragment_to_listFragment)
+            userViewModel.getRole("Admin")
+            userViewModel.readRole!!.observe(viewLifecycleOwner){
+                Toast.makeText(requireContext(), it.roleName, Toast.LENGTH_LONG).show()
+                val user = User(0, firstName, lastName, Integer.parseInt(age.toString()), it.id)
+                userViewModel.addUser(user)
+                Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_addFragment_to_listFragment)
+            }
         }else{
             Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_LONG).show()
         }
