@@ -98,12 +98,14 @@ class updateFragment : Fragment() {
         val age = binding.ageUpdateET.text
 
         if(inputCheck(firstName, lastName, age)){
-            val user = User(userId, firstName, lastName, Integer.parseInt(age.toString()), 1)
-
-            userViewModel.updateUser(user)
-            Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_LONG).show()
-            //navigate back
-            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+            userViewModel.getRole("User")
+            userViewModel.readRole!!.observe(viewLifecycleOwner){
+                val user = User(userId, firstName, lastName, Integer.parseInt(age.toString()), it.id)
+                userViewModel.updateUser(user)
+                Toast.makeText(requireContext(), "Successfully updated!", Toast.LENGTH_LONG).show()
+                //navigate back
+                findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+            }
         }else{
             Toast.makeText(requireContext(), "Please fill out all fields!", Toast.LENGTH_LONG).show()
         }

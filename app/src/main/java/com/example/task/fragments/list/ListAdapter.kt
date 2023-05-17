@@ -16,10 +16,11 @@ import com.example.task.model.User
 import com.example.task.databinding.CustomRowBinding
 import com.example.task.databinding.FragmentUpdateBinding
 import com.example.task.fragments.update.updateFragment
+import com.example.task.model.UserWithRole
 
 class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
-    private var userList = emptyList<User>()
+    private var userList = emptyList<UserWithRole>()
 
     class MyViewHolder(itemView: CustomRowBinding):RecyclerView.ViewHolder(itemView.root) {
         private var id:TextView = itemView.idTxt
@@ -29,14 +30,15 @@ class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         private var rowLayout:ConstraintLayout = itemView.rowLayout
         fun ItemAdapter(onClickListener:(User)->Unit) {}
         @SuppressLint("ResourceType")
-        fun bind(user: User){
+        fun bind(user: UserWithRole){
             id.text = user.id.toString()
             firstName.text = user.firstName
-            lastName.text = user.role.toString()
+            lastName.text = user.roleName.roleName
             age.text = user.age.toString()
             rowLayout.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putParcelable("user", user)
+                var add_user = User(user.id, user.firstName, user.lastName, user.age, user.roleName.id)
+                bundle.putParcelable("user", add_user)
                 itemView.findNavController().navigate(R.id.action_listFragment_to_updateFragment, bundle)
 
             }
@@ -60,7 +62,7 @@ class ListAdapter:RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(users: List<User>){
+    fun setData(users: List<UserWithRole>){
         this.userList = users
         notifyDataSetChanged()
     }

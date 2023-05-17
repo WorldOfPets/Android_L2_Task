@@ -51,8 +51,6 @@ class listFragment : Fragment() {
 
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-        userViewModel.addRole(Role(1, "Admin"))
-        userViewModel.addRole(Role(1, "User"))
         userViewModel.readAllData.observe(viewLifecycleOwner) {
             adapter.setData(it)
         }

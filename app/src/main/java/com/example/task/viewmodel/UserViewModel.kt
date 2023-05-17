@@ -7,13 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.task.data.UserDatabase
 import com.example.task.model.Role
 import com.example.task.model.User
+import com.example.task.model.UserWithRole
 import com.example.task.repository.RoleRepository
 import com.example.task.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
-    val readAllData: LiveData<List<User>>
+    val readAllData: LiveData<List<UserWithRole>>
     //var readAllRole: LiveData<List<Role>>? = null
     var readRole: LiveData<Role>? = null
     private val repository: UserRepository

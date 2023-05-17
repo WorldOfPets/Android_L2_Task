@@ -3,6 +3,7 @@ package com.example.task.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.task.model.User
+import com.example.task.model.UserWithRole
 
 @Dao
 interface UserDao {
@@ -16,5 +17,5 @@ interface UserDao {
     @Query("DELETE FROM user_table")
     suspend fun deleteAllUsers()
     @Query("SELECT * FROM user_table")
-    fun readAllData():LiveData<List<User>>
+    fun readAllData():LiveData<List<UserWithRole>>
 }
